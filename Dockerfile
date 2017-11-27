@@ -100,4 +100,6 @@ EXPOSE 8080
 
 STOPSIGNAL SIGTERM
 
+COPY upstream.conf /etc/nginx/conf.d/
+
 CMD ["nginx", "-g", "daemon off;"]
