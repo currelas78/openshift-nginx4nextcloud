@@ -96,10 +96,12 @@ RUN set -x \
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
+RUN "upstream php-handler { server $NEXTCLOUD_HOST:9000; }" > /etc/nginx/conf.d/upstream.conf
+
 EXPOSE 8080
 
 STOPSIGNAL SIGTERM
 
-COPY upstream.conf /etc/nginx/conf.d/
+#COPY upstream.conf /etc/nginx/conf.d/
 
 CMD ["nginx", "-g", "daemon off;"]
