@@ -96,13 +96,17 @@ RUN set -x \
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
-RUN echo "#upstream php-handler { server ${NEXTCLOUD_HOST}:9000; }" > /etc/nginx/conf.d/upstream.conf
+RUN echo "#upstream php-handler { server ${NEXTCLOUD_HOST}:9000; }" > /etc/nginx/conf.d/upstream2.conf
+RUN echo ${NEXTCLOUD_HOST} > /etc/nginx/conf.d/test
+
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN ln -s usr/local/bin/docker-entrypoint.sh /entrypoint.sh # backwards compat
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 EXPOSE 8080
 
 STOPSIGNAL SIGTERM
 
 #COPY upstream.conf /etc/nginx/conf.d/
-RUN echo ${NEXTCLOUD_HOST} > /etc/nginx/conf.d/test
 
 CMD ["nginx", "-g", "daemon off;"]
