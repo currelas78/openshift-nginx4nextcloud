@@ -98,6 +98,8 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 
 RUN echo "#upstream php-handler { server ${NEXTCLOUD_HOST}:9000; }" > /etc/nginx/conf.d/upstream.conf
 
+RUN echo ${NEXTCLOUD_HOST} > /etc/nginx/conf.d/test
+
 EXPOSE 8080
 
 STOPSIGNAL SIGTERM
