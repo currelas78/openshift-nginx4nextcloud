@@ -4,7 +4,7 @@ LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 
 ENV NGINX_VERSION 1.13.5-1~stretch
 ENV NJS_VERSION   1.13.5.0.1.13-1~stretch
-ENV NEXTCLOUD_HOST	localhost
+ENV NEXTCLOUD_HOST
 
 RUN set -x \
 	&& apt-get update \
