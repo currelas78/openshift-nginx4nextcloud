@@ -4,7 +4,6 @@ LABEL maintainer="NGINX Docker Maintainers <docker-maint@nginx.com>"
 
 ENV NGINX_VERSION 1.13.5-1~stretch
 ENV NJS_VERSION   1.13.5.0.1.13-1~stretch
-ENV NEXTCLOUD_HOST
 
 RUN set -x \
 	&& apt-get update \
@@ -99,12 +98,11 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 
 RUN echo "#upstream php-handler { server ${NEXTCLOUD_HOST}:9000; }" > /etc/nginx/conf.d/upstream.conf
 
-RUN echo ${NEXTCLOUD_HOST} > /etc/nginx/conf.d/test
-
 EXPOSE 8080
 
 STOPSIGNAL SIGTERM
 
 #COPY upstream.conf /etc/nginx/conf.d/
+RUN echo ${NEXTCLOUD_HOST} > /etc/nginx/conf.d/test
 
 CMD ["nginx", "-g", "daemon off;"]
